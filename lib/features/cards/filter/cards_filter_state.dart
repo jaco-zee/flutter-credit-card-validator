@@ -4,7 +4,6 @@ import '../../../domain/value_objects/card_brand.dart';
 
 enum SortOption { newestFirst, oldestFirst, brandAToZ, brandZToA }
 
-/// State for filtering and searching cards
 class CardsFilterState extends Equatable {
   const CardsFilterState({
     this.query = '',

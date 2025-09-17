@@ -3,11 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/utils/luhn.dart';
 import 'scan_state.dart';
 
-/// Cubit for managing card scanning
 class ScanCubit extends Cubit<ScanState> {
   ScanCubit() : super(const ScanState());
   
-  /// Starts the card scanning process
   Future<void> startScan() async {
     emit(state.copyWith(status: ScanStatus.starting));
     
@@ -62,17 +60,14 @@ class ScanCubit extends Cubit<ScanState> {
     }
   }
   
-  /// Cancels the scanning process
   void cancelScan() {
     emit(state.copyWith(status: ScanStatus.idle));
   }
   
-  /// Resets scan state to idle
   void reset() {
     emit(const ScanState());
   }
   
-  /// Clears error messages
   void clearError() {
     emit(state.copyWith(
       status: ScanStatus.idle,

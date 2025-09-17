@@ -9,7 +9,6 @@ import '../filter/cards_filter_cubit.dart';
 import '../filter/cards_filter_state.dart';
 import '../presenter/cards_presenter.dart';
 
-/// Page for displaying and managing credit cards
 class CardsPage extends StatelessWidget {
   const CardsPage({super.key});
   

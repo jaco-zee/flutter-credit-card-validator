@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 
 enum ScanStatus { idle, starting, scanning, success, error }
 
-/// State for card scanning feature
 class ScanState extends Equatable {
   const ScanState({
     this.status = ScanStatus.idle,

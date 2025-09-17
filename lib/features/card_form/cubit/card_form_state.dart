@@ -3,7 +3,6 @@ import '../../../domain/value_objects/card_brand.dart';
 
 enum SubmitStatus { idle, submitting, success, error }
 
-/// State for the card form feature
 class CardFormState extends Equatable {
   const CardFormState({
     this.rawNumber = '',

@@ -3,7 +3,6 @@ import '../../../domain/entities/credit_card.dart';
 
 enum CardsStatus { initial, loading, success, error }
 
-/// State for the cards feature
 class CardsState extends Equatable {
   const CardsState({
     this.status = CardsStatus.initial,

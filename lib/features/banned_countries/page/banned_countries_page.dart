@@ -4,7 +4,6 @@ import '../../../app/di.dart';
 import '../cubit/banned_countries_cubit.dart';
 import '../presenter/banned_countries_presenter.dart';
 
-/// Page for managing banned countries
 class BannedCountriesPage extends StatelessWidget {
   const BannedCountriesPage({super.key});
   

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/card_colors.dart';
 import '../../../domain/value_objects/card_brand.dart';
 
-/// A realistic credit card visual widget that updates in real-time
+// credit card visual widget that updates in real-time
 class CreditCardWidget extends StatelessWidget {
   const CreditCardWidget({
     super.key,

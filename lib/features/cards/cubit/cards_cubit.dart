@@ -3,13 +3,11 @@ import '../../../domain/entities/credit_card.dart';
 import '../../../domain/repositories/card_repository.dart';
 import 'cards_state.dart';
 
-/// Cubit for managing credit cards collection and operations
 class CardsCubit extends Cubit<CardsState> {
   CardsCubit(this._repository) : super(const CardsState());
   
   final CardRepository _repository;
-  
-  /// Loads all saved credit cards
+
   Future<void> load() async {
     emit(state.copyWith(status: CardsStatus.loading));
     
@@ -32,33 +30,25 @@ class CardsCubit extends Cubit<CardsState> {
     }
   }
   
-  /// Adds a new credit card (with deduplication) without UI feedback
-  /// Used by forms that handle their own error display
+  // (with deduplication) without UI feedback
   Future<bool> addCardQuietly(CreditCard card) async {
     try {
-      // Check for duplicates
       final exists = await _repository.exists(card.number);
       if (exists) {
-        return false; // Return false to indicate failure
+        return false;
       }
-      
-      // Save the card
       await _repository.save(card);
-      
-      // Reload the list to reflect changes
+
       await load();
       
-      return true; // Return true to indicate success
+      return true;
     } catch (error) {
-      return false; // Return false on any error
+      return false;
     }
   }
 
-  /// Adds a new credit card (with deduplication)
   Future<void> addCard(CreditCard card) async {
-    // Reset previous operation status
     emit(state.copyWith(lastOperationStatus: CardsStatus.loading));
-    
     try {
       // Check for duplicates
       final exists = await _repository.exists(card.number);
@@ -72,13 +62,12 @@ class CardsCubit extends Cubit<CardsState> {
       
       // Save the card
       await _repository.save(card);
-      
-      // Reload the list to reflect changes
+
       await load();
       
       emit(state.copyWith(
         lastOperationStatus: CardsStatus.success,
-        errorMessage: '', // Clear any previous error message
+        errorMessage: '',
       ));
     } catch (error) {
       emit(state.copyWith(
@@ -88,7 +77,7 @@ class CardsCubit extends Cubit<CardsState> {
     }
   }
   
-  /// Removes a credit card by normalized number
+  // Removes a credit card by normalized number
   Future<void> deleteCard(String normalizedNumber) async {
     try {
       final removed = await _repository.remove(normalizedNumber);
@@ -113,8 +102,7 @@ class CardsCubit extends Cubit<CardsState> {
       ));
     }
   }
-  
-  /// Clears error/success messages
+
   void clearMessage() {
     emit(state.copyWith(
       lastOperationStatus: CardsStatus.initial,

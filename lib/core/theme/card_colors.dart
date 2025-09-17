@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../domain/value_objects/card_brand.dart';
 
-/// Utility class for card-related colors and gradients
+// Utility class for card-related colors and gradients
 class CardColors {
-  // Private constructor to prevent instantiation
   CardColors._();
-
-  /// Gets gradient colors based on card brand
   static LinearGradient getCardGradient(CardBrand? brand) {
     switch (brand) {
       case CardBrand.visa:
@@ -75,7 +72,6 @@ class CardColors {
     }
   }
 
-  /// Common app gradients
   static const backgroundGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
@@ -85,7 +81,6 @@ class CardColors {
     ],
   );
 
-  /// Common app colors
   static const primaryDark = Color(0xFF1F2937);
   static const textSecondary = Color(0xFF374151);
   static const textMuted = Color(0xFF6B7280);

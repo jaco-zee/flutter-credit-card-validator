@@ -11,7 +11,6 @@ import '../cubit/card_form_cubit.dart';
 import '../cubit/card_form_state.dart';
 import '../widgets/credit_card_widget.dart';
 
-/// Presenter for card form input and validation
 class CardFormPresenter extends StatefulWidget {
   const CardFormPresenter({super.key, this.onSuccess});
   
@@ -28,14 +27,11 @@ class _CardFormPresenterState extends State<CardFormPresenter> {
   final _cardHolderNameController = TextEditingController();
   final _expiryDateController = TextEditingController();
   String? _selectedCountry;
-  
-  // Track last shown error to prevent repeated toasts
   String? _lastShownError;
   
   @override
   void initState() {
     super.initState();
-    
     // Listen to scan results
     context.read<ScanCubit>().stream.listen((scanState) {
       if (scanState.status == ScanStatus.success && mounted) {
@@ -99,7 +95,6 @@ class _CardFormPresenterState extends State<CardFormPresenter> {
             ),
           );
         } else if (state.submitStatus == SubmitStatus.idle) {
-          // Clear error tracking when status is reset
           _lastShownError = null;
         }
       },
@@ -135,7 +130,7 @@ class _CardFormPresenterState extends State<CardFormPresenter> {
                   
                   const SizedBox(height: 40),
                   
-                  // Form Fields Section
+                  // Form Fields
                   Container(
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(

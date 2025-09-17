@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 
 enum BannedCountriesStatus { initial, loading, success, error }
 
-/// State for banned countries management
 class BannedCountriesState extends Equatable {
   const BannedCountriesState({
     this.status = BannedCountriesStatus.initial,

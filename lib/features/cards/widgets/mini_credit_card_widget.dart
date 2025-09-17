@@ -3,7 +3,6 @@ import '../../../core/theme/card_colors.dart';
 import '../../../domain/entities/credit_card.dart';
 import '../../../domain/value_objects/card_brand.dart';
 
-/// A compact credit card widget for list views
 class MiniCreditCardWidget extends StatelessWidget {
   const MiniCreditCardWidget({
     super.key,
@@ -95,7 +94,7 @@ class MiniCreditCardWidget extends StatelessWidget {
     );
   }
 
-  /// Builds the brand icon
+  //brand icon
   Widget _buildBrandIcon(CardBrand brand) {
     IconData iconData;
     
@@ -119,7 +118,7 @@ class MiniCreditCardWidget extends StatelessWidget {
     );
   }
 
-  /// Builds the mini EMV chip widget
+  // mini EMV chip widget
   Widget _buildMiniChip() {
     return Container(
       width: 24,
@@ -149,7 +148,7 @@ class MiniCreditCardWidget extends StatelessWidget {
     );
   }
 
-  /// Gets the last four digits of the card number
+  //Gets the last four digits of the card number
   String _getLastFourDigits(String number) {
     if (number.length >= 4) {
       return number.substring(number.length - 4);

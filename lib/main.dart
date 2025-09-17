@@ -8,7 +8,6 @@ import 'features/cards/filter/cards_filter_cubit.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Initialize dependencies
   await setupDependencies();
   
   runApp(const CardSubmitterApp());

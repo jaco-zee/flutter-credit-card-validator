@@ -5,7 +5,6 @@ import '../../scan/cubit/scan_cubit.dart';
 import '../cubit/card_form_cubit.dart';
 import '../presenter/card_form_presenter.dart';
 
-/// Page for adding a new credit card
 class CardFormPage extends StatelessWidget {
   const CardFormPage({super.key});
   

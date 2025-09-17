@@ -1,6 +1,5 @@
 /// Luhn algorithm implementation for credit card validation
 class LuhnValidator {
-  // Private constructor to prevent instantiation
   LuhnValidator._();
 
   /// Validates if a card number passes the Luhn algorithm check

@@ -4,9 +4,7 @@ import '../features/card_form/page/card_form_page.dart';
 import '../features/cards/page/cards_page.dart';
 import '../features/settings/page/settings_page.dart';
 
-/// App routing configuration
 class AppRouter {
-  // Private constructor to prevent instantiation
   AppRouter._();
 
   static const String home = '/';

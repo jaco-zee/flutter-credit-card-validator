@@ -4,7 +4,6 @@ import '../../domain/value_objects/card_brand.dart';
 
 part 'credit_card_model.g.dart';
 
-/// Hive model for credit card persistence
 @HiveType(typeId: 0)
 class CreditCardModel extends HiveObject {
   CreditCardModel({
@@ -16,7 +15,6 @@ class CreditCardModel extends HiveObject {
     required this.savedAt,
   });
   
-  /// Converts from domain entity to model
   factory CreditCardModel.fromEntity(CreditCard entity) {
     return CreditCardModel(
       number: entity.number,
@@ -46,7 +44,6 @@ class CreditCardModel extends HiveObject {
   @HiveField(5)
   String expiryDate;
   
-  /// Converts from model to domain entity
   CreditCard toEntity() {
     return CreditCard(
       number: number,
@@ -58,7 +55,6 @@ class CreditCardModel extends HiveObject {
     );
   }
   
-  /// Parses brand string back to CardBrand enum
   CardBrand _parseBrand(String brandName) {
     return CardBrand.values.firstWhere(
       (brand) => brand.displayName == brandName,

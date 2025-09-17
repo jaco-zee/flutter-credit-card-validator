@@ -1,4 +1,4 @@
-/// Represents supported credit card brands
+// card brands
 enum CardBrand {
   visa('Visa'),
   mastercard('Mastercard'),
@@ -11,10 +11,8 @@ enum CardBrand {
   const CardBrand(this.displayName);
   
   final String displayName;
-  
-  /// Returns the brand name formatted for display
+
   String get name => displayName;
-  
-  /// Returns true if this is a known/supported brand
+
   bool get isKnown => this != CardBrand.unknown;
 }

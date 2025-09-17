@@ -4,7 +4,6 @@ import '../../../domain/value_objects/country_code.dart';
 import '../cubit/banned_countries_cubit.dart';
 import '../cubit/banned_countries_state.dart';
 
-/// Presenter for managing banned countries
 class BannedCountriesPresenter extends StatelessWidget {
   const BannedCountriesPresenter({super.key});
   
@@ -73,7 +72,7 @@ class BannedCountriesPresenter extends StatelessWidget {
               Expanded(
                 child: _buildBannedList(context, state),
               ),
-              const SizedBox(height: 20), // Bottom padding to prevent cutoff
+              const SizedBox(height: 20),
             ],
           ),
         );
@@ -135,7 +134,7 @@ class BannedCountriesPresenter extends StatelessWidget {
             children: [
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  key: ValueKey(state.bannedCodes.length), // Force rebuild when banned list changes
+                  key: ValueKey(state.bannedCodes.length),
                   decoration: InputDecoration(
                     labelText: 'Select Country to Ban',
                     filled: true,
@@ -254,7 +253,7 @@ class BannedCountriesPresenter extends StatelessWidget {
         
         Expanded(
           child: ListView.builder(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 20), // Added bottom padding
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
             itemCount: sortedCodes.length,
             itemBuilder: (context, index) {
               final code = sortedCodes[index];

@@ -2,13 +2,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/datasources/local/card_local_ds.dart';
 import 'banned_countries_state.dart';
 
-/// Cubit for managing banned countries
+
 class BannedCountriesCubit extends Cubit<BannedCountriesState> {
   BannedCountriesCubit(this._dataSource) : super(const BannedCountriesState());
   
   final CardLocalDataSource _dataSource;
   
-  /// Loads banned countries from storage
   Future<void> load() async {
     emit(state.copyWith(status: BannedCountriesStatus.loading));
     
@@ -25,13 +24,11 @@ class BannedCountriesCubit extends Cubit<BannedCountriesState> {
       ));
     }
   }
-  
-  /// Adds a country to the banned list
+
   Future<void> addCountry(String countryCode) async {
     try {
       await _dataSource.addBannedCountry(countryCode);
-      
-      // Update local state
+
       final updated = Set<String>.from(state.bannedCodes);
       updated.add(countryCode);
       
@@ -46,13 +43,11 @@ class BannedCountriesCubit extends Cubit<BannedCountriesState> {
       ));
     }
   }
-  
-  /// Removes a country from the banned list
+
   Future<void> removeCountry(String countryCode) async {
     try {
       await _dataSource.removeBannedCountry(countryCode);
-      
-      // Update local state
+
       final updated = Set<String>.from(state.bannedCodes);
       updated.remove(countryCode);
       
@@ -68,12 +63,10 @@ class BannedCountriesCubit extends Cubit<BannedCountriesState> {
     }
   }
   
-  /// Checks if a country is banned
   bool isCountryBanned(String countryCode) {
     return state.bannedCodes.contains(countryCode);
   }
   
-  /// Clears error messages
   void clearError() {
     emit(state.copyWith(
       status: BannedCountriesStatus.initial,

@@ -1,4 +1,4 @@
-/// Represents ISO 3166-1 alpha-2 country codes
+
 class CountryCode {
   const CountryCode(this.code, this.name);
   
@@ -15,8 +15,7 @@ class CountryCode {
 
   @override
   String toString() => '$name ($code)';
-  
-  /// Common country codes for credit card issuance
+
   static const List<CountryCode> common = [
     CountryCode('US', 'United States'),
     CountryCode('CA', 'Canada'),
@@ -49,8 +48,7 @@ class CountryCode {
     CountryCode('GR', 'Greece'),
     CountryCode('PL', 'Poland'),
   ];
-  
-  /// Finds a country by its code
+
   static CountryCode? findByCode(String code) {
     try {
       return common.firstWhere((country) => country.code == code.toUpperCase());

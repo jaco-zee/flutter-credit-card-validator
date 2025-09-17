@@ -1,6 +1,6 @@
-/// Utility functions for credit card number masking and formatting
+
 class CardFormatter {
-  // Private constructor to prevent instantiation
+
   CardFormatter._();
 
   /// Masks a credit card number showing only the last 4 digits
