@@ -134,8 +134,6 @@ class CreditCardWidget extends StatelessWidget {
                 ),
                 
                 const SizedBox(width: 16),
-                
-                // Brand name (moved to bottom right)
                 Text(
                   brand?.name.toUpperCase() ?? '',
                   style: const TextStyle(
@@ -153,7 +151,6 @@ class CreditCardWidget extends StatelessWidget {
     );
   }
 
-  /// Builds the brand logo widget
   Widget _buildBrandLogo(CardBrand? brand) {
     IconData iconData;
     Color iconColor = Colors.white;
@@ -189,7 +186,7 @@ class CreditCardWidget extends StatelessWidget {
     );
   }
 
-  /// Builds the EMV chip widget
+  //EMV chip widget
   Widget _buildChip() {
     return Container(
       width: 40,
@@ -218,16 +215,12 @@ class CreditCardWidget extends StatelessWidget {
     );
   }
 
-  /// Formats card number with proper spacing
+  //Formats card number with proper spacing
   String _formatCardNumber(String number) {
     if (number.isEmpty) {
       return '•••• •••• •••• ••••';
     }
-    
-    // Pad with bullets if less than 16 digits
     String paddedNumber = number.padRight(16, '•');
-    
-    // Add spacing every 4 digits
     StringBuffer buffer = StringBuffer();
     for (int i = 0; i < paddedNumber.length; i += 4) {
       if (i > 0) buffer.write(' ');

@@ -4,6 +4,7 @@ import '../../../core/utils/bin_patterns.dart';
 import '../../../core/utils/luhn.dart';
 import '../../../data/datasources/local/card_local_ds.dart';
 import '../../../domain/entities/credit_card.dart';
+import '../../../domain/value_objects/card_brand.dart';
 import '../../cards/cubit/cards_cubit.dart';
 import 'card_form_state.dart';
 
@@ -197,39 +198,94 @@ class CardFormCubit extends Cubit<CardFormState> {
   }
   
   void _validateForm() {
-    final isValidNumber = state.rawNumber.isNotEmpty && LuhnValidator.isValid(state.rawNumber);
-    final isValidCvv = BinPatterns.isValidCvvLength(state.cvv, state.brand);
-    final hasCardHolderName = state.cardHolderName.trim().isNotEmpty;
-    final isValidExpiryDate = _isValidExpiryDate(state.expiryDate);
-    final hasCountry = state.countryCode.isNotEmpty;
+    final cardNumberValidation = validateCardNumber(state.rawNumber);
+    final cvvValidation = validateCvv(state.cvv, state.brand);
+    final nameValidation = validateCardHolderName(state.cardHolderName);
+    final expiryValidation = validateExpiryDate(state.expiryDate);
+    final countryValidation = validateCountry(state.countryCode);
     
-    final isValid = isValidNumber && isValidCvv && hasCardHolderName && isValidExpiryDate && hasCountry;
+    final isValid = cardNumberValidation.isEmpty && 
+                   cvvValidation.isEmpty && 
+                   nameValidation.isEmpty && 
+                   expiryValidation.isEmpty && 
+                   countryValidation.isEmpty;
     
-    emit(state.copyWith(isValid: isValid));
+    emit(state.copyWith(
+      isValid: isValid,
+      cardNumberError: cardNumberValidation,
+      cvvError: cvvValidation,
+      cardHolderNameError: nameValidation,
+      expiryDateError: expiryValidation,
+      countryError: countryValidation,
+    ));
   }
 
-  bool _isValidExpiryDate(String expiryDate) {
-    if (expiryDate.length != 5 || !expiryDate.contains('/')) {
-      return false;
+  // Validation methods that return error messages (empty string means valid)
+  String validateCardNumber(String number) {
+    if (number.isEmpty) {
+      return 'Please enter card number';
+    }
+    if (!LuhnValidator.isValid(number)) {
+      return 'Please enter a valid card number';
+    }
+    return '';
+  }
+
+  String validateCvv(String cvv, CardBrand brand) {
+    final expectedLength = brand == CardBrand.americanExpress ? 4 : 3;
+    if (cvv.isEmpty) {
+      return 'Please enter CVV';
+    }
+    if (cvv.length != expectedLength) {
+      return 'CVV must be $expectedLength digits';
+    }
+    return '';
+  }
+
+  String validateCardHolderName(String name) {
+    final trimmedName = name.trim();
+    if (trimmedName.isEmpty) {
+      return 'Please enter card holder name';
+    }
+    if (trimmedName.length < 2) {
+      return 'Name must be at least 2 characters';
+    }
+    return '';
+  }
+
+  String validateExpiryDate(String date) {
+    if (date.isEmpty) {
+      return 'Please enter expiry date';
+    }
+    if (date.length != 5 || !date.contains('/')) {
+      return 'Enter date as MM/YY';
     }
     
-    final parts = expiryDate.split('/');
-    if (parts.length != 2) return false;
-    
+    final parts = date.split('/');
     final month = int.tryParse(parts[0]);
     final year = int.tryParse(parts[1]);
     
-    if (month == null || year == null) return false;
-    if (month < 1 || month > 12) return false;
+    if (month == null || month < 1 || month > 12) {
+      return 'Invalid month';
+    }
     
-    // Convert 2-digit year to 4-digit year
-    final fullYear = year + 2000;
-    
-    // Check if the date is not expired (current month/year or later)
+    // Check if expired
     final now = DateTime.now();
-    final expiryDateTime = DateTime(fullYear, month);
+    final fullYear = year! + 2000;
+    final expiryDate = DateTime(fullYear, month);
     final currentMonthYear = DateTime(now.year, now.month);
     
-    return expiryDateTime.isAfter(currentMonthYear) || expiryDateTime.isAtSameMomentAs(currentMonthYear);
+    if (expiryDate.isBefore(currentMonthYear)) {
+      return 'Card has expired';
+    }
+    
+    return '';
+  }
+
+  String validateCountry(String countryCode) {
+    if (countryCode.isEmpty) {
+      return 'Please select a country';
+    }
+    return '';
   }
 }

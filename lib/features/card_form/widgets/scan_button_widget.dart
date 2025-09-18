@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../scan/cubit/scan_cubit.dart';
 import '../../scan/cubit/scan_state.dart';
 
-//button widget for scanning cards with camera
+/// A button widget for scanning cards with camera
 class ScanButtonWidget extends StatelessWidget {
   const ScanButtonWidget({super.key});
 
@@ -18,6 +18,12 @@ class ScanButtonWidget extends StatelessWidget {
               backgroundColor: Colors.red,
             ),
           );
+          // Auto-reset after showing error to prevent hanging
+          Future.delayed(const Duration(milliseconds: 500), () {
+            if (context.mounted) {
+              context.read<ScanCubit>().reset();
+            }
+          });
         }
       },
       builder: (context, scanState) {

@@ -15,6 +15,11 @@ class CardFormState extends Equatable {
     this.isValid = false,
     this.submitStatus = SubmitStatus.idle,
     this.errorMessage = '',
+    this.cardNumberError = '',
+    this.cvvError = '',
+    this.cardHolderNameError = '',
+    this.expiryDateError = '',
+    this.countryError = '',
   });
   
   final String rawNumber;
@@ -27,6 +32,11 @@ class CardFormState extends Equatable {
   final bool isValid;
   final SubmitStatus submitStatus;
   final String errorMessage;
+  final String cardNumberError;
+  final String cvvError;
+  final String cardHolderNameError;
+  final String expiryDateError;
+  final String countryError;
   
   CardFormState copyWith({
     String? rawNumber,
@@ -39,6 +49,11 @@ class CardFormState extends Equatable {
     bool? isValid,
     SubmitStatus? submitStatus,
     String? errorMessage,
+    String? cardNumberError,
+    String? cvvError,
+    String? cardHolderNameError,
+    String? expiryDateError,
+    String? countryError,
   }) {
     return CardFormState(
       rawNumber: rawNumber ?? this.rawNumber,
@@ -51,6 +66,11 @@ class CardFormState extends Equatable {
       isValid: isValid ?? this.isValid,
       submitStatus: submitStatus ?? this.submitStatus,
       errorMessage: errorMessage ?? this.errorMessage,
+      cardNumberError: cardNumberError ?? this.cardNumberError,
+      cvvError: cvvError ?? this.cvvError,
+      cardHolderNameError: cardHolderNameError ?? this.cardHolderNameError,
+      expiryDateError: expiryDateError ?? this.expiryDateError,
+      countryError: countryError ?? this.countryError,
     );
   }
   
@@ -66,5 +86,10 @@ class CardFormState extends Equatable {
     isValid,
     submitStatus,
     errorMessage,
+    cardNumberError,
+    cvvError,
+    cardHolderNameError,
+    expiryDateError,
+    countryError,
   ];
 }
