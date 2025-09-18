@@ -16,62 +16,43 @@ class ScanButtonWidget extends StatelessWidget {
             SnackBar(
               content: Text(scanState.errorMessage),
               backgroundColor: Colors.red,
+              action: SnackBarAction(
+                label: 'Dismiss',
+                textColor: Colors.white,
+                onPressed: () {
+                  context.read<ScanCubit>().clearError();
+                },
+              ),
             ),
           );
-          // Auto-reset after showing error to prevent hanging
-          Future.delayed(const Duration(milliseconds: 500), () {
-            if (context.mounted) {
-              context.read<ScanCubit>().reset();
-            }
-          });
         }
       },
       builder: (context, scanState) {
-        final isScanning = scanState.status == ScanStatus.scanning || 
-                          scanState.status == ScanStatus.starting;
-        
         return SizedBox(
           width: double.infinity,
           height: 56,
           child: OutlinedButton.icon(
-            onPressed: isScanning 
-                ? null 
-                : () => context.read<ScanCubit>().startScan(),
+            onPressed: () => context.read<ScanCubit>().startScan(),
             style: OutlinedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
               side: BorderSide(
-                color: isScanning 
-                    ? Colors.grey.shade300
-                    : Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColor,
                 width: 2,
               ),
             ),
-            icon: isScanning 
-                ? SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  )
-                : Icon(
-                    Icons.camera_alt,
-                    size: 24,
-                    color: Theme.of(context).primaryColor,
-                  ),
+            icon: Icon(
+              Icons.camera_alt,
+              size: 24,
+              color: Theme.of(context).primaryColor,
+            ),
             label: Text(
-              isScanning ? 'Scanning...' : 'Scan Card with Camera',
+              'Scan Card with Camera',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: isScanning 
-                    ? Colors.grey.shade500
-                    : Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColor,
               ),
             ),
           ),
